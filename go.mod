@@ -4,9 +4,10 @@ go 1.13
 
 require (
 	cloud.google.com/go v0.55.0 // indirect
+	github.com/gin-gonic/gin v1.6.2
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
-	github.com/jinzhu/gorm v1.9.12
-	github.com/joho/godotenv v1.3.0
+	github.com/jinzhu/gorm v1.9.12 // indirect
+	github.com/joho/godotenv v1.3.0 // indirect
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/sys v0.0.0-20200327173247-9dae0f8f5775 // indirect

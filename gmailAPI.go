@@ -10,6 +10,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/gin-gonic/gin"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -85,7 +86,7 @@ func gmailMain() {
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, gmail.GmailReadonlyScope, gmail.GmailSendScope)
+	config, err := google.ConfigFromJSON(b, gmail.GmailSendScope)
 	if err != nil {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
@@ -97,27 +98,21 @@ func gmailMain() {
 	}
 
 	user := "me"
-	r, err := gmailService.Users.Labels.List(user).Do()
-	if err != nil {
-		log.Fatalf("Unable to retrieve labels: %v", err)
-	}
-	if len(r.Labels) == 0 {
-		fmt.Println("No labels found.")
-		return
-	}
-	fmt.Println("Labels:")
-	for _, l := range r.Labels {
-		fmt.Printf("- %s\n", l.Name)
-	}
+	// r, err := gmailService.Users.Labels.List(user).Do()
+	// if err != nil {
+	// 	log.Fatalf("Unable to retrieve labels: %v", err)
+	// }
+	// if len(r.Labels) == 0 {
+	// 	fmt.Println("No labels found.")
+	// 	return
+	// }
+	// fmt.Println("Labels:")
+	// for _, l := range r.Labels {
+	// 	fmt.Printf("- %s\n", l.Name)
+	// }
 
 	var message gmail.Message
 
-	// Compose the message
-	// messageStr := []byte(
-	// 	"From: youremail@gmail.com\r\n" +
-	// 		"To: recipient@gmail.com\r\n" +
-	// 		"Subject: My first Gmail API message\r\n\r\n" +
-	// 		"Message body goes here!")
 	var messageStr []byte
 	if messageStr, err = ioutil.ReadFile("./mail.txt"); err != nil {
 		fmt.Println(err)
@@ -128,10 +123,14 @@ func gmailMain() {
 	message.Raw = base64.URLEncoding.EncodeToString(messageStr)
 
 	// Send the message
-	_, err = gmailService.Users.Messages.Send("me", &message).Do()
+	_, err = gmailService.Users.Messages.Send(user, &message).Do()
 	if err != nil {
 		log.Printf("Error: %v", err)
 	} else {
 		fmt.Println("Message sent!")
 	}
+}
+
+func gmailCallback(c *gin.Context) {
+
 }
