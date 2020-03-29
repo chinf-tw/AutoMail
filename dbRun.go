@@ -8,7 +8,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/joho/godotenv"
 )
 
 var db *gorm.DB //database
@@ -49,10 +48,6 @@ func dbMain() {
 	}
 }
 func dbConnect() (conn *gorm.DB, err error) {
-	e := godotenv.Load() //Load .env file
-	if e != nil {
-		fmt.Println(e)
-	}
 	username := os.Getenv("db_user")
 	password := os.Getenv("db_pass")
 	dbName := os.Getenv("db_name")
