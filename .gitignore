@@ -7,9 +7,15 @@
 
 # Test binary, built with `go test -c`
 *.test
-
+.DS_Store
+mail.txt
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Sensitive information
+.env
+postgres-passwd
+credentials.json
