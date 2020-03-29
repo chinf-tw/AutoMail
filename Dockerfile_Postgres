@@ -1,0 +1,5 @@
+FROM postgres
+
+COPY ./postgres-passwd /run/secrets/passwd
+
+VOLUME [ "/data" ]
